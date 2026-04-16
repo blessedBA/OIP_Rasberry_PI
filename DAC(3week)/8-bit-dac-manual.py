@@ -18,7 +18,6 @@ def voltage_to_number(voltage):
 
 def number_to_dac(number):
     GPIO.output(dac_bits, [int(element) for element in bin(number)[2:].zfill(8)])
-    return 0
 
 try:
     while True:
