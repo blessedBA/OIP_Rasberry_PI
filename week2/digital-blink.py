@@ -8,7 +8,7 @@ led = 26
 GPIO.setup(led, GPIO.OUT)
 
 state = 0
-period = 10
+period = 0.5
 
 while True:
     GPIO.output(led, state)
