@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 class R2R_DAC:
     def __init__(self, gpio_bits, dynamic_range, verbose = False):
         self.gpio_bits = gpio_bits
-        self.dymanic_range = dynamic_range
+        self.dynamic_range = dynamic_range
         self.verbose = verbose
         
         GPIO.setmode(GPIO.BCM)
@@ -14,15 +14,15 @@ class R2R_DAC:
         GPIO.cleanup()
 
     def set_number(self, number):
-        GPIO.output(self.dac_bits, [int(element) for element in bin(number)[2:].zfill(8)])
+        GPIO.output(self.gpio_bits, [int(element) for element in bin(number)[2:].zfill(8)])
 
     def set_voltage(self, voltage):
         if not (0.0 <= voltage <= self.dynamic_range):
-            print(f"Напряжение выходит за динамический диапазон ЦАП (0.00 - {dynamic_range:.2f} В)")
+            print(f"Напряжение выходит за динамический диапазон ЦАП (0.00 - {self.dynamic_range:.2f} В)")
             print("Устанавливаем 0.0 В")
             return 0
 
-        self.set_number(self, int(voltage / self.dynamic_range * 255))
+        self.set_number(int(voltage / self.dynamic_range * 255))
 
 if __name__ == "__main__":
     try:
