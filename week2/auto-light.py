@@ -15,7 +15,7 @@ GPIO.setup(divisioner, GPIO.IN)
 while True:
     if GPIO.input(divisioner):
         state = not state
-        GPIO.output(led, state)
+        #GPIO.output(led, state)
         
         GPIO.output(led, 0)
     else:

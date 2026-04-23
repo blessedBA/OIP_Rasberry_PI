@@ -32,8 +32,11 @@ while True:
         print(num, dec2bin(num))
         time.sleep(sleep_time)
     if GPIO.input(button_down) > 0:
-        # add protection for negative and overmaxed values
         num -= 1
+        if num < 0:
+            print("negative value!!!")
+            num += 1
+            continue
         print(num, dec2bin(num))
         time.sleep(sleep_time)
     GPIO.output(leds, dec2bin(num))
