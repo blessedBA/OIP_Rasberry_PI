@@ -14,7 +14,7 @@ class PWM_DAC:
         GPIO.cleanup()
 
     def set_number(self, number):
-        GPIO.output(self.gpio_pin, [int(element) for element in bin(number)[2:].zfill(8)])
+        GPIO.output(self.gpio_pin, number)
 
     def set_voltage(self, voltage):
         if not (0.0 <= voltage <= self.pwm_frequency):
