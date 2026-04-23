@@ -17,6 +17,6 @@ while True:
         state = not state
         GPIO.output(led, state)
         
-
+        GPIO.output(led, 0)
     else:
-        GPIO.output(led, state)
+        GPIO.output(led, 1)

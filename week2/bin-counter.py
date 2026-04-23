@@ -8,11 +8,11 @@ leds = [16, 12, 25, 17, 27, 23, 22, 24]
 GPIO.setup(leds, GPIO.OUT)
 GPIO.output(leds, 0)
 
-button_up = 0   #gpio of up button 
-button_down = 0 #similarly
+button_up = 9   #gpio of up button 
+button_down = 10 #similarly
 
-#GPIO.setup(button_up, GPIO.OUT)
-#GPIO.setup(button_down, GPIO.OUT)
+GPIO.setup(button_up, GPIO.IN)
+GPIO.setup(button_down, GPIO.IN)
 
 num = 0
 
