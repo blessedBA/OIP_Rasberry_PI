@@ -37,11 +37,40 @@ class R2R_ADC:
         value = self.sequential_counting_adc()
         return (value / 255) * self.dynamic_range
 
+    def successive_approximation_adc(self):
+        number = 0
+
+        for bit_index in range(255 - 1, -1, -1):
+            trial_number = number | (1 << bit_index)
+            self.number_to_dac(trial_number)
+            time.sleep(self.compare_time)
+
+            if GPIO.input(self.comp_gpio) == 0:
+                if self.verbose:
+                    print(f"bit {bit_index}: reset, trial = {trial_number}")
+            else:
+                number = trial_number
+                if self.verbose:
+                    print(f"bit {bit_index}: keep, number = {number}")
+
+        self.number_to_dac(number)
+
+        if self.verbose:
+            print(f"Successive approximation ADC number: {number}")
+
+            return number
+
+    def get_sar_voltage(self):
+        number = self.successive_approximation_adc()
+        return number * self.dynamic_range / 255
+            
+                        
+
 if __name__ == "__main__":
     try:
         adc = R2R_ADC(3.3, 0.01)
         while True:
-            voltage = adc.get_sc_voltage()
+            voltage = adc.get_sar_voltage()
             print (f"Напряжение: {voltage}")
 
     finally:
