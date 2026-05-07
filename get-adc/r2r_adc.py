@@ -27,7 +27,7 @@ class R2R_ADC:
     def sequential_counting_adc(self):
         for i in range(0, 255):
             self.number_to_dac(i)
-            time.sleep(0.01)
+            time.sleep(self.compare_time)
             if (GPIO.input(self.comp_gpio) == 1):
                 return i
 
@@ -45,7 +45,7 @@ class R2R_ADC:
             self.number_to_dac(trial_number)
             time.sleep(self.compare_time)
 
-            if GPIO.input(self.comp_gpio) == 0:
+            if GPIO.input(self.comp_gpio) == 1:
                 if self.verbose:
                     print(f"bit {bit_index}: reset, trial = {trial_number}")
             else:
