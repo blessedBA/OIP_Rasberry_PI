@@ -28,4 +28,9 @@ class R2R_ADC:
         GPIO.output(self.bits_gpio, dec2bin(number))
 
     def sequentil_counting_adc(self):
+        for number in range(255):
+            number_to_dac(self, number)
+            time.sleep(0.01)
+            if ()
+
         
