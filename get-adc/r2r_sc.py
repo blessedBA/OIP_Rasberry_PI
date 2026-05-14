@@ -6,7 +6,7 @@ adc = R2R_ADC(3.3, 0.0001, False)
 
 voltage_values = []
 time_values = []
-duration = 10.0
+duration = 3.0
 dynamic_range = 3.3
 
 try:
