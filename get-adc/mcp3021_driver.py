@@ -1,4 +1,5 @@
 import smbus
+import time
 
 class MCP3021:
     def __init__(self, dynamic_range, verbose = False):
@@ -14,21 +15,22 @@ class MCP3021:
         data = self.bus.read_word_data(self.address, 0)
         lower_data_byte = data >> 8
         upper_data_byte = data & 0xFF
-        number = (upper_data_byte << 6) | (lower_data_byte >> 2)
+        number = (upper_data_byte << 8) | lower_data_byte
         if self.verbose:
             print(f"Принятые данные: {data}, Старший байт: {upper_data_byte:x}, Младший байт: {lower_data_byte:x}, Число: {number}")
         return number
 
     def get_voltage(self):
-        value = MCP3021.get_number()
-        return (value/1024) * self.dynamic_range
+        value = MCP3021.get_number(self)
+        return (value/0xFFF) * self.dynamic_range
 
-    if __name__ == "__main__":
-        try:
-            adc = MCP3021(5.2) # измерить!
-            while True:
-                voltage = adc.get_voltage()
-                print(f"Число: {voltage}")
+if __name__ == "__main__":
+    try:
+        adc = MCP3021(5)
+        while True:
+            voltage = adc.get_voltage()
+            print(f"Число: {voltage}")
+            time.sleep(1)
 
-        finally:
-            adc.deinit()
+    finally:
+        adc.deinit()

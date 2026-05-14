@@ -10,10 +10,10 @@ if __name__ == "__main__":
             duration = 3.0
             start_time = time.time()
             while ((time.time() - start_time) < duration):
-                voltage = adc.get_sc_voltage()
+                voltage = adc.get_voltage()
                 time_values.append(time.time() - start_time)
                 voltage_values.append(voltage)
-            plt.plot_voltage_vs_time(time_values, voltage_values, 3.3)
+            plt.plot_voltage_vs_time(time_values, voltage_values, 5.2)
             plt.plot_sampling_period_hist(time_values)
 
         finally:
